@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,11 +19,12 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-        'user_id' => User::factory(),
-        'amount' => fake()->numberBetween(0, 100000),
-        //'category_id' => ,
-        'description' => fake()->sentence,
-        'date' => fake()->dateTimeThisMonth(),
+
+            'amount' => fake()->numberBetween(0, 100000),
+            'description' => fake()->sentence(),
+            'date' => fake()->dateTimeThisMonth(),
+            'user_id' => User::factory(),
+            'category_id' => Category::factory()
         ];
     }
 }

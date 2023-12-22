@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         User::truncate();
         Transaction::truncate();
-
+        Category::truncate();
     }
 }

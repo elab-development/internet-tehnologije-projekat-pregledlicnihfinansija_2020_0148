@@ -19,5 +19,17 @@ class DatabaseSeeder extends Seeder
         User::truncate();
         Transaction::truncate();
         Category::truncate();
+
+        $users = User::factory(10)->create();
+        $this->call(AssignRolesToUsersSeeder::class);
+        $categories = Category::factory(5)->create();
+
+        foreach (range(1, 20) as $index) {
+            Transaction::factory()->create([
+                'user_id' => $users->random()->id,
+                'category_id' => $categories->random()->id
+            ]);
+        }
+
     }
 }

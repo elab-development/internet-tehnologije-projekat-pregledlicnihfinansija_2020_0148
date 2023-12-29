@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +22,13 @@ class DatabaseSeeder extends Seeder
         Category::truncate();
 
         $users = User::factory(10)->create();
+
+        User::create([
+            'name' => 'Petra B',
+            'email' => 'petra@example.com',
+            'password' => 'password'
+        ]);
+
         $this->call(AssignRolesToUsersSeeder::class);
         $categories = Category::factory(5)->create();
 

@@ -91,4 +91,18 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+    public function paginateUsers(Request $request)
+    {
+        $perPage = $request->input('per_page', 5);
+        $users = User::paginate($perPage);
+
+        return response()->json(['users' => $users]);
+    }
+
+    public function searchByName($name)
+    {
+        $users = User::where('name', 'like', '%' . $name . '%')->get();
+        return response()->json($users);
+    }
 }

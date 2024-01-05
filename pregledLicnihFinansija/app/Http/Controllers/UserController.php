@@ -97,12 +97,12 @@ class UserController extends Controller
         $perPage = $request->input('per_page', 5);
         $users = User::paginate($perPage);
 
-        return response()->json(['users' => $users]);
+        return UserResource::collection($users);
     }
 
     public function searchByName($name)
     {
         $users = User::where('name', 'like', '%' . $name . '%')->get();
-        return response()->json($users);
+        return UserResource::collection($users);
     }
 }

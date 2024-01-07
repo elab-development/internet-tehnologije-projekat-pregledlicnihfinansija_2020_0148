@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -66,14 +67,21 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+    public function __construct()
+    {
+        $this->middleware('adminOrManager')->only('update');
+    }
+
     public function update(Request $request, User $user)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
         ]);
-
+        
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -89,7 +97,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return response()->json(null, 204);
+        return response()->json(['message' => 'User successfully deleted'], 200);
     }
 
     public function paginateUsers(Request $request)

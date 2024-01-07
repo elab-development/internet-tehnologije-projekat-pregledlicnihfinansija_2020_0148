@@ -18,7 +18,7 @@ class AssignRolesToUsersSeeder extends Seeder
         $users = User::all();
 
         $users->each(function ($user) {
-            $roles = ['admin', 'user', 'menager']; 
+            $roles = ['admin', 'user', 'manager']; 
             $randomRole = $roles[array_rand($roles)]; 
             $user->role = $randomRole; 
             $user->save();

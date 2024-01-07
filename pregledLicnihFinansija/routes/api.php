@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Gate;
+
 
 
 /*
@@ -30,22 +32,25 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/paginated-categories', [CategoryController::class, 'paginateCategories']);
 
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    
+    Route::post('/users', [UserController::class, 'store'])->middleware('role:admin');
+    Route::put('/users/{user}', [UserController::class, 'update'])
+    ->middleware('adminOrManager');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('role:admin');
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/categories', [CategoryController::class, 'store'])->middleware('role:admin');
+    Route::put('/categories/{category}', [CategoryController::class, 'update'])
+    ->middleware('adminOrManager');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('role:admin');
 
+    Route::resource("users.transactions", UserTransactionController::class)
+    ->only(['index']);
+    
     Route::get('/user', function (Request $request) {
         return $request->user();
-    });
+    }); 
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::post('/users', [UserController::class, 'store']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
-    Route::delete('/users/{user}', [UserController::class, 'destroy']);
-
-    Route::resource("users.transactions", UserTransactionController::class)->only(['index']);
-
-    Route::post('/categories', [CategoryController::class, 'store']);
-    Route::put('/categories/{category}', [CategoryController::class, 'update']);
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 });

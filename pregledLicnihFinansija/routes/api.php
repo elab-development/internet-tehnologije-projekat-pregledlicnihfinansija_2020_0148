@@ -30,7 +30,8 @@ Route::get('/paginated-users', [UserController::class, 'paginateUsers']);
 Route::get('search/{name}', [UserController::class, 'searchByName']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/paginated-categories', [CategoryController::class, 'paginateCategories']);
-
+Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
+Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     

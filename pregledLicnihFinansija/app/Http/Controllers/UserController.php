@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -100,6 +103,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User successfully deleted'], 200);
     }
 
+    
     public function paginateUsers(Request $request)
     {
         $perPage = $request->input('per_page', 5);

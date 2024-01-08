@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -51,6 +53,7 @@ class AuthController extends Controller
             ->json(['message' => 'Hi ' . $user->name . ', you have successfully logged in!', 'access_token' => $token, 'token_type' => 'Bearer']);
     }
 
+
     public function logout(Request $request)
     {
         $user = $request->user();
@@ -58,5 +61,65 @@ class AuthController extends Controller
         $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
 
         return response()->json(['message' => 'Logged out successfully']);
+    }
+
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    
+        $token = Str::random(60);
+    
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'email' => $request->email,
+                'token' => Hash::make($token),
+                'created_at' => now(),
+            ]
+        );
+    
+        return response()->json(['token' => $token], 200);
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+            'token' => 'required|string',
+        ]);
+    
+        $resetRecord = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->first();
+    
+        if (!$resetRecord || !Hash::check($request->token, $resetRecord->token)) {
+            return response()->json(['message' => 'Invalid or expired token'], 400);
+        }
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->delete();
+    
+        return response()->json(['message' => 'Password reset successfully'], 200);
     }
 }

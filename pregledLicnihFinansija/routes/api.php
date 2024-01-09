@@ -34,24 +34,28 @@ Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    
+
     Route::post('/users', [UserController::class, 'store'])->middleware('role:admin');
     Route::put('/users/{user}', [UserController::class, 'update'])
-    ->middleware('adminOrManager');
+        ->middleware('adminOrManager');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('role:admin');
 
     Route::post('/categories', [CategoryController::class, 'store'])->middleware('role:admin');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])
-    ->middleware('adminOrManager');
+        ->middleware('adminOrManager');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('role:admin');
 
-    Route::resource("users.transactions", UserTransactionController::class)
-    ->only(['index']);
-    
+    Route::get('/users/{id}/transactions', [UserTransactionController::class, 'index']);
+
+    Route::get('/users/{id}/transactions/{min_amount}/{max_amount}', [UserTransactionController::class, 'filterByAmount']);
+
+    Route::get('/users/{id}/transactions_sort_by_date', [UserTransactionController::class, 'sortDates']);
+
+    Route::get('/users/{id}/transactions-paginate', [UserTransactionController::class, 'paginateTransactions']);
+
     Route::get('/user', function (Request $request) {
         return $request->user();
-    }); 
+    });
 
     Route::post('/logout', [AuthController::class, 'logout']);
-
 });

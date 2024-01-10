@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTransactionController;
 use Illuminate\Http\Request;
@@ -44,6 +45,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/categories/{category}', [CategoryController::class, 'update'])
         ->middleware('adminOrManager');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('role:admin');
+
+    Route::post('/transactions', [TransactionController::class, 'store']);
 
     Route::get('/users/{id}/transactions', [UserTransactionController::class, 'index']);
 

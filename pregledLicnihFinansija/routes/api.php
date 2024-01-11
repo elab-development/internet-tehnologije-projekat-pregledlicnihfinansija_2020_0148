@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/transactions', [TransactionController::class, 'store']);
 
-    Route::get('/users/{id}/transactions', [UserTransactionController::class, 'index']);
+    Route::resource("users.transactions", UserTransactionController::class)->only(['index']);
 
     Route::get('/users/{id}/transactions/{min_amount}/{max_amount}', [UserTransactionController::class, 'filterByAmount']);
 

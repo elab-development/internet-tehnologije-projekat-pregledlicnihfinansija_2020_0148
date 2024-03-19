@@ -5,28 +5,28 @@
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
     to right,
-    rgba(132, 171, 250, 0.5),
-    rgba(143, 173, 244, 0.5)
+    rgba(46, 84, 206, 0.5),
+    rgba(48, 91, 191, 0.5)
   );
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(
     to right,
-    rgba(132, 177, 250, 0.5),
-    rgba(143, 173, 244, 0.5)
+    rgba(26, 70, 141, 0.5),
+    rgba(17, 49, 124, 0.5)
   );
 }
 .gradient-custom-4 {
   /* fallback for old browsers */
-  background: #84fab0;
+  background: #84a7fa;
 
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(
     to right,
-    rgb(132, 169, 250),
-    rgba(143, 211, 244, 1)
+    rgb(29, 65, 144),
+    rgb(16, 99, 141)
   );
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgb(132, 187, 250), rgb(143, 175, 244));
+  background: linear-gradient(to right, rgb(62, 110, 164), rgb(79, 108, 169));
 }

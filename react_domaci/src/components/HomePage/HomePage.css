@@ -1,0 +1,38 @@
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.home-title {
+  color: #000102;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  color: #103053;
+}
+
+.section p {
+  color: #071523;
+}
+
+.section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.home-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}

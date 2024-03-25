@@ -9,13 +9,18 @@ const LoginPage = () => {
     password: "",
   });
   function handleInput(e) {
-    let newUserData = userData;
+    let newUserData = { ...userData };
     newUserData[e.target.name] = e.target.value;
     setUserData(newUserData);
+    console.log("Email:", newUserData.email);
+    console.log("Password:", newUserData.password);
   }
-  // function handleLogin() {
 
-  // }
+  function handleLogin() {
+    console.log("Email:", userData.email);
+    console.log("Password:", userData.password);
+  }
+
   return (
     <section className="vh-100 gradient-custom">
       <div className="container py-5 h-100">
@@ -59,7 +64,7 @@ const LoginPage = () => {
                   </div>
 
                   <p className="small mb-5 pb-lg-2">
-                    <a className="text-white-50" href="#!">
+                    <a className="text-white-50" href="/forgot-password">
                       Forgot password?
                     </a>
                   </p>
@@ -67,7 +72,7 @@ const LoginPage = () => {
                   <button
                     className="btn btn-outline-light btn-lg px-5"
                     type="submit"
-                    //onClick={handleLogin}
+                    onClick={handleLogin}
                   >
                     Login
                   </button>

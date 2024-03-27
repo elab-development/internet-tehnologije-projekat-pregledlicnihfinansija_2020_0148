@@ -1,0 +1,17 @@
+button {
+  background-color: rgb(62, 62, 98);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+img {
+  max-width: 500px;
+  height: auto;
+}

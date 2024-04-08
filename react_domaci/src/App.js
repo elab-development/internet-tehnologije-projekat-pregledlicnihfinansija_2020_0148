@@ -1,5 +1,6 @@
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
 import LoginPage from "./components/LoginPage/LoginPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/users" element={<Users />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

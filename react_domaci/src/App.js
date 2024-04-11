@@ -8,6 +8,8 @@ import HomePage from "./components/HomePage/HomePage";
 import LogoutPage from "./components/Logout/Logout";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Users from "./components/Users/Users";
+import Transactions from "./components/Transactions/Transactions";
+import Utilities from "./components/Utilities/Utilities";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/transactions/utilities" element={<Utilities />} />
       </Routes>
       <Footer />
     </BrowserRouter>

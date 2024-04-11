@@ -1,0 +1,22 @@
+.transContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .transCards-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  
+  .transCard {
+    width: 100%;
+    max-width: calc(50% - 5px);
+  }
+
+  .card-header {
+    font-weight: bold;
+  }

@@ -30,7 +30,7 @@ const LogoutPage = () => {
 
   return (
     <div className="logout-container">
-      <img src="/images/image2.jpg" alt="Image 2" className="logout-image" />
+      <img src="/images/image2.jpg" alt="logout" className="logout-image" />
       {showConfirmation ? (
         <div className="logout-confirmation">
           <h2>You are about to log out. Are you sure?</h2>

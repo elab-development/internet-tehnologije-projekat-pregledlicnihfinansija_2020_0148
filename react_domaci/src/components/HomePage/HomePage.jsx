@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className="home-container">
       <header className="header">
         <h1 className="home-title">Personal Finance Overview</h1>
-        <img src="/images/image1.jpg" alt="Image 1" className="home-image" />
+        <img src="/images/image1.jpg" alt="Home" className="home-image" />
       </header>
       <section id="about" className="section">
         <h2>About</h2>
@@ -26,7 +26,7 @@ const HomePage = () => {
           <li>Savings Tracking</li>
         </ul>
       </section>
-      <section id="contact" className="section">
+      <section id="contact" className="section-end">
         <h2>Contact</h2>
         <p>Email: info@example.com</p>
         <p>Phone: 123-456-7890</p>

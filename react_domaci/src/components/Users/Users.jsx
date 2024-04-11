@@ -50,7 +50,7 @@ const Users = () => {
   return (
     <div>
       <h1>Users</h1>
-      <img src="/images/image3.jpg" alt="Image 3" className="3rd-image" />
+      <img src="/images/image3.jpg" alt="Users" className="3rd-image" />
       <div style={{ marginBottom: "20px" }}></div>
       <ul>
         {users.map((user) => (

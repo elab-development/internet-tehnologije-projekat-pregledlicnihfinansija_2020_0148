@@ -12,6 +12,9 @@ import Transactions from "./components/Transactions/Transactions";
 import Utilities from "./components/Transactions/Categories/Utilities";
 import Groceries from "./components/Transactions/Categories/Groceries";
 import Transportation from "./components/Transactions/Categories/Transportation";
+import Entertainment from "./components/Transactions/Categories/Entertainment";
+import Shopping from "./components/Transactions/Categories/Shopping";
+import HealthAndWellness from "./components/Transactions/Categories/HealthAndWellness";
 
 function App() {
   return (
@@ -27,6 +30,12 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/transactions/utilities" element={<Utilities />} />
         <Route path="/transactions/groceries" element={<Groceries />} />
+        <Route path="/transactions/entertainment" element={<Entertainment />} />
+        <Route path="/transactions/shopping" element={<Shopping />} />
+        <Route
+          path="/transactions/healthandwellness"
+          element={<HealthAndWellness />}
+        />
         <Route
           path="/transactions/transportation"
           element={<Transportation />}

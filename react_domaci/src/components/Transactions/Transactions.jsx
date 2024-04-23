@@ -13,10 +13,10 @@ const Transactions = () => {
             <div className="card-header">Utilities</div>
             <div className="card-body">
               <p className="card-text">
-                Utilities cover expenses for essential services like
-                electricity, water, gas, and more. Managing utility transactions
-                involves tracking payments and usage for these basic
-                necessities.
+                This category includes payments for essential services such as
+                electricity, water, gas, internet, and telephone. Tracking these
+                expenses helps you manage monthly household costs and ensure
+                you're staying within your budget.
               </p>
             </div>
           </div>
@@ -29,9 +29,10 @@ const Transactions = () => {
             <div className="card-header">Groceries</div>
             <div className="card-body">
               <p className="card-text">
-                Track all purchases of food, beverages, and household items from
-                supermarkets and markets. Monitoring this spending helps manage
-                your budget and spot savings opportunities.
+                This category captures all expenses related to buying food and
+                household supplies from supermarkets and local markets. Tracking
+                these helps you manage your spending on daily essentials and
+                maintain your budget.
               </p>
             </div>
           </div>
@@ -52,46 +53,54 @@ const Transactions = () => {
             </div>
           </div>
         </a>
-        <div
-          className="transCard text-white bg-danger mb-3"
-          style={{ maxWidth: "18rem" }}
-        >
-          <div className="card-header">Entertainment</div>
-          <div className="card-body">
-            <p className="card-text">
-              This category covers expenses related to leisure activities such
-              as movies, concerts, sporting events, and dining out. Tracking
-              these helps you understand how much you're spending on fun and
-              recreation, aiding in balanced budgeting.
-            </p>
+        <a href="/transactions/entertainment">
+          <div
+            className="transCard text-white bg-danger mb-3"
+            style={{ maxWidth: "18rem" }}
+          >
+            <div className="card-header">Entertainment</div>
+            <div className="card-body">
+              <p className="card-text">
+                This category covers expenses related to leisure activities such
+                as movies, concerts, sporting events, and dining out. Tracking
+                these helps you understand how much you're spending on fun and
+                recreation, aiding in balanced budgeting.
+              </p>
+            </div>
           </div>
-        </div>
-        <div
-          className="transCard text-white bg-warning mb-3"
-          style={{ maxWidth: "18rem" }}
-        >
-          <div className="card-header">Shopping</div>
-          <div className="card-body">
-            <h5 className="card-title">Secondary card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+        </a>
+        <a href="/transactions/shopping">
+          <div
+            className="transCard text-white bg-warning mb-3"
+            style={{ maxWidth: "18rem" }}
+          >
+            <div className="card-header">Shopping</div>
+            <div className="card-body">
+              <p className="card-text">
+                This category includes expenses from purchasing clothing,
+                electronics, home appliances and other retail items. Monitoring
+                these transactions helps you manage discretionary spending and
+                align it with your budgeting goals.
+              </p>
+            </div>
           </div>
-        </div>
-        <div
-          className="transCard text-white bg-info mb-3"
-          style={{ maxWidth: "18rem" }}
-        >
-          <div className="card-header">Health and wellness</div>
-          <div className="card-body">
-            <h5 className="card-title">Secondary card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+        </a>
+        <a href="/transactions/healthandwellness">
+          <div
+            className="transCard text-white bg-info mb-3"
+            style={{ maxWidth: "18rem" }}
+          >
+            <div className="card-header">Health and wellness</div>
+            <div className="card-body">
+              <p className="card-text">
+                This category encompasses expenses related to medical services,
+                fitness memberships, and wellness products. Tracking these helps
+                you manage health-related spending and prioritize well-being
+                within your budget.
+              </p>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   );

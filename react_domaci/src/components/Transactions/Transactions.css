@@ -3,13 +3,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 80px;
-    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-top: -20px;
   }
   
   .transCards-container {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
   }
   

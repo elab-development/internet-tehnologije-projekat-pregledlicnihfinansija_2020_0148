@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import "./Utilities.css";
+import "./Categories.css";
 
-const Utilities = () => {
+const Groceries = () => {
   const [transactions, setTransactions] = useState([
     {
       id: 1,
-      amount: 50.0,
-      description: "Electricity bill",
+      amount: 3.5,
+      description: "Milk",
       date: "2024-04-09",
     },
-    { id: 2, amount: 30.0, description: "Water bill", date: "2024-04-08" },
+    { id: 2, amount: 2.0, description: "Bread", date: "2024-04-08" },
   ]);
 
   const [showEditPopup, setShowEditPopup] = useState(false);
@@ -64,11 +64,11 @@ const Utilities = () => {
   return (
     <div className="body-trans">
       <div className="img-container-trans">
-        <img src="/images/utilities.jpg" alt="Utilities" />
+        <img src="/images/groceries.jpeg" alt="Groceries" />
       </div>
       <div className="container-trans">
         <div className="title-trans">
-          <h2>Transactions for Utilities</h2>
+          <h2>Transactions for Groceries</h2>
           <button onClick={handleAddNewTransaction}>Add New Transaction</button>
         </div>
         <table className="table-trans">
@@ -191,4 +191,4 @@ const Utilities = () => {
   );
 };
 
-export default Utilities;
+export default Groceries;

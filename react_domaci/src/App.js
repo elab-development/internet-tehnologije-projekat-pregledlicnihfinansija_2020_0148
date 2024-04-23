@@ -9,7 +9,9 @@ import LogoutPage from "./components/Logout/Logout";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Users from "./components/Users/Users";
 import Transactions from "./components/Transactions/Transactions";
-import Utilities from "./components/Utilities/Utilities";
+import Utilities from "./components/Transactions/Categories/Utilities";
+import Groceries from "./components/Transactions/Categories/Groceries";
+import Transportation from "./components/Transactions/Categories/Transportation";
 
 function App() {
   return (
@@ -24,6 +26,11 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/transactions/utilities" element={<Utilities />} />
+        <Route path="/transactions/groceries" element={<Groceries />} />
+        <Route
+          path="/transactions/transportation"
+          element={<Transportation />}
+        />
       </Routes>
       <Footer />
     </BrowserRouter>

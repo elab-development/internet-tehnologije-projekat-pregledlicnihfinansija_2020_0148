@@ -78,8 +78,8 @@ const NavBar = () => {
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
+                    <a className="dropdown-item" href="/">
+                      Something else
                     </a>
                   </li>
                 </ul>

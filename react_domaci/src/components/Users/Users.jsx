@@ -10,6 +10,9 @@ const Users = () => {
     { id: 3, name: "Mika", email: "mika@example.com" },
   ]);
   const [editingUserId, setEditingUserId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(2);
 
   const addUser = () => {
     setEditingUserId("new");
@@ -47,13 +50,33 @@ const Users = () => {
     }
   };
 
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <div>
+    <div className="container2">
       <h1>Users</h1>
+      <input
+        type="text"
+        placeholder="Search by name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <img src="/images/image3.jpg" alt="Users" className="3rd-image" />
       <div style={{ marginBottom: "20px" }}></div>
       <ul>
-        {users.map((user) => (
+        {currentUsers.map((user) => (
           <li key={user.id}>
             {user.name} - {user.email}
             <button onClick={() => updateUser(user.id)}>Update</button>
@@ -79,6 +102,18 @@ const Users = () => {
           }
         />
       )}
+
+      <ul className="pagination">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <li
+            key={i + 1}
+            className={currentPage === i + 1 ? "active" : ""}
+            onClick={() => handlePageChange(i + 1)}
+          >
+            <span style={{ marginRight: "5px" }}>{i + 1}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

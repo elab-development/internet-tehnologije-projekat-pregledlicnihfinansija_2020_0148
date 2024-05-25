@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserForm from "../UserForm/UserForm";
 import "./Users.css";
 import "../UserForm/UserForm.css";
 
 const Users = () => {
-  const [users, setUsers] = useState([
-    { id: 1, name: "Pera", email: "pera@example.com" },
-    { id: 2, name: "Laza", email: "laza@example.com" },
-    { id: 3, name: "Mika", email: "mika@example.com" },
-  ]);
+  const [users, setUsers] = useState([]);
   const [editingUserId, setEditingUserId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(2);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("https://randomuser.me/api/?results=10");
+      const data = await response.json();
+      const fetchedUsers = data.results.map((user, index) => ({
+        id: index + 1,
+        name: `${user.name.first} ${user.name.last}`,
+        email: user.email,
+      }));
+      setUsers(fetchedUsers);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
 
   const addUser = () => {
     setEditingUserId("new");

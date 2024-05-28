@@ -55,14 +55,13 @@ const NavBar = () => {
                 </Link>
               </li>
               <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
+                <button
+                  className="nav-link dropdown-toggle btn btn-link"
                   onClick={handleToggle}
                   aria-expanded={!isCollapsed ? "true" : "false"}
                 >
                   Admin panel
-                </a>
+                </button>
                 <ul
                   className={`dropdown-menu ${isCollapsed ? "" : "show"}`}
                   aria-labelledby="navbarDropdownMenuLink"
@@ -72,16 +71,11 @@ const NavBar = () => {
                       Users
                     </Link>
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="/all-transactions">
-                      All transactions
-                    </a>
-                  </li>
-                  <li>
+                  {/* <li>
                     <a className="dropdown-item" href="/">
                       Something else
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
             </ul>

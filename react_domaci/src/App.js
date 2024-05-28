@@ -15,6 +15,7 @@ import Transportation from "./components/Transactions/Categories/Transportation"
 import Entertainment from "./components/Transactions/Categories/Entertainment";
 import Shopping from "./components/Transactions/Categories/Shopping";
 import HealthAndWellness from "./components/Transactions/Categories/HealthAndWellness";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           path="/transactions/transportation"
           element={<Transportation />}
         />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </BrowserRouter>

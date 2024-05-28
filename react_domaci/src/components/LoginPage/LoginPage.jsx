@@ -8,6 +8,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+
   function handleInput(e) {
     let newUserData = { ...userData };
     newUserData[e.target.name] = e.target.value;
@@ -78,13 +79,28 @@ const LoginPage = () => {
                   </button>
 
                   <div className="d-flex justify-content-center text-center mt-4 pt-1">
-                    <a href="#!" className="text-white">
+                    <a
+                      href="https://www.facebook.com"
+                      className="text-white"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <i className="fab fa-facebook-f fa-lg"></i>
                     </a>
-                    <a href="#!" className="text-white">
-                      <i className="fab fa-twitter fa-lg mx-4 px-2"></i>
+                    <a
+                      href="https://www.instagram.com"
+                      className="text-white"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-instagram fa-lg mx-4 px-2"></i>
                     </a>
-                    <a href="#!" className="text-white">
+                    <a
+                      href="https://www.google.com"
+                      className="text-white"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <i className="fab fa-google fa-lg"></i>
                     </a>
                   </div>

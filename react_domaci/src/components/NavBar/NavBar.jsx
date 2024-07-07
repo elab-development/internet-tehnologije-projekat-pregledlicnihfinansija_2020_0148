@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ token }) => {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -39,21 +39,39 @@ const NavBar = () => {
                   Home
                 </Link>
               </li>
+
+              {/* {token == null ? (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/logout">
+                    Logout
+                  </Link>
+                </li>
+              )} */}
+
               <li className="nav-item">
                 <Link className="nav-link" to="/login">
                   Login
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/transactions">
-                  My transactions
-                </Link>
-              </li>
+
               <li className="nav-item">
                 <Link className="nav-link" to="/logout">
                   Logout
                 </Link>
               </li>
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/transactions">
+                  My transactions
+                </Link>
+              </li>
+
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle btn btn-link"

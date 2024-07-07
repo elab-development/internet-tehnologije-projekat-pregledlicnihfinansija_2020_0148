@@ -2,12 +2,16 @@ import React from "react";
 import { useState } from "react";
 import "./LoginPage.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({ addToken }) => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
+  let navigate = useNavigate();
 
   function handleInput(e) {
     let newUserData = { ...userData };
@@ -17,9 +21,21 @@ const LoginPage = () => {
     console.log("Password:", newUserData.password);
   }
 
-  function handleLogin() {
-    console.log("Email:", userData.email);
-    console.log("Password:", userData.password);
+  function handleLogin(e) {
+    e.preventDefault();
+    axios
+      .post("http://127.0.0.1:8000/api/login", userData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success === true) {
+          window.sessionStorage.setItem("auth_token", res.data.access_token);
+          addToken(res.data.access_token);
+          navigate("/");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   return (
@@ -45,6 +61,7 @@ const LoginPage = () => {
                       className="form-control form-control-lg"
                       onInput={handleInput}
                       name="email"
+                      autoComplete="email"
                     />
                     <label className="form-label" htmlFor="typeEmailX">
                       Email
@@ -58,6 +75,7 @@ const LoginPage = () => {
                       className="form-control form-control-lg"
                       onInput={handleInput}
                       name="password"
+                      autoComplete="current-password"
                     />
                     <label className="form-label" htmlFor="typePasswordX">
                       Password

@@ -1,32 +1,52 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Logout.css";
+import axios from "axios";
 
 const LogoutPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(true);
   const [loggedOut, setLoggedOut] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log("Korisnik je izlogovan.");
     setShowConfirmation(false);
     setLoggedOut(true);
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:8000/api/logout",
+      headers: {
+        Authorization: "Bearer " + window.sessionStorage.getItem("auth_token"),
+      },
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        window.sessionStorage.removeItem("auth_token");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleCancel = () => {
     setShowConfirmation(true);
     setLoggedOut(false);
-    window.location.href = "/";
+    navigate("/");
   };
 
   useEffect(() => {
     if (loggedOut) {
       const timeout = setTimeout(() => {
-        window.location.href = "/";
+        navigate("/");
       }, 10000);
 
       return () => clearTimeout(timeout);
     }
-  }, [loggedOut]);
+  }, [loggedOut, navigate]);
 
   return (
     <div className="logout-container">

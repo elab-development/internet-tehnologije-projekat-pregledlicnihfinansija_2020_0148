@@ -16,14 +16,20 @@ import Entertainment from "./components/Transactions/Categories/Entertainment";
 import Shopping from "./components/Transactions/Categories/Shopping";
 import HealthAndWellness from "./components/Transactions/Categories/HealthAndWellness";
 import Contact from "./components/Contact/Contact";
+import React from "react";
+import { useState } from "react";
 
 function App() {
+  const [token, setToken] = useState();
+  function addToken(auth_token) {
+    setToken(auth_token);
+  }
   return (
     <BrowserRouter className="App">
-      <NavBar />
+      <NavBar token={token} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage addToken={addToken} />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

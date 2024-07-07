@@ -1,8 +1,47 @@
 import React from "react";
+import { useState } from "react";
 import "./RegisterPage.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+  });
+  const [error, setError] = useState("");
+
+  let navigate = useNavigate();
+
+  function handleInput(e) {
+    let newUserData = { ...userData };
+    newUserData[e.target.name] = e.target.value;
+    setUserData(newUserData);
+    setError("");
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    if (userData.password !== userData.repeatPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    axios
+      .post("http://127.0.0.1:8000/api/register", userData)
+      .then((res) => {
+        console.log(res.data);
+        navigate("/login");
+      })
+      .catch((e) => {
+        console.log(e);
+        setError("An error occurred. Please try again later.");
+      });
+  }
+
   return (
     <section
       className="vh-100 bg-image"
@@ -21,12 +60,18 @@ const RegisterPage = () => {
                     Create an account
                   </h2>
 
-                  <form>
+                  <form onSubmit={handleRegister}>
+                    {error && <p className="text-danger">{error}</p>}
+
                     <div className="form-outline mb-4">
                       <input
                         type="text"
                         id="yourName"
+                        name="name"
                         className="form-control form-control-lg"
+                        onInput={handleInput}
+                        required
+                        autoComplete="name" // Dodato
                       />
                       <label className="form-label" htmlFor="yourName">
                         Your Name
@@ -37,7 +82,11 @@ const RegisterPage = () => {
                       <input
                         type="email"
                         id="yourEmail"
+                        name="email"
                         className="form-control form-control-lg"
+                        onInput={handleInput}
+                        required
+                        autoComplete="email" // Dodato
                       />
                       <label className="form-label" htmlFor="yourEmail">
                         Your Email
@@ -48,7 +97,11 @@ const RegisterPage = () => {
                       <input
                         type="password"
                         id="yourPassword"
+                        name="password"
                         className="form-control form-control-lg"
+                        onInput={handleInput}
+                        required
+                        autoComplete="new-password" // Dodato
                       />
                       <label className="form-label" htmlFor="yourPassword">
                         Password
@@ -59,7 +112,11 @@ const RegisterPage = () => {
                       <input
                         type="password"
                         id="repeatPassword"
+                        name="repeatPassword"
                         className="form-control form-control-lg"
+                        onInput={handleInput}
+                        required
+                        autoComplete="new-password" // Dodato
                       />
                       <label className="form-label" htmlFor="repeatPassword">
                         Repeat your password
@@ -72,6 +129,7 @@ const RegisterPage = () => {
                         type="checkbox"
                         value=""
                         id="agreeTerms"
+                        required
                       />
                       <label className="form-check-label" htmlFor="agreeTerms">
                         I agree all statements in{" "}
@@ -83,7 +141,7 @@ const RegisterPage = () => {
 
                     <div className="d-flex justify-content-center">
                       <button
-                        type="button"
+                        type="submit"
                         className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                       >
                         Register

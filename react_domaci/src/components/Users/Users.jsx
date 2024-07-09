@@ -10,6 +10,14 @@ const Users = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [jwtToken, setJwtToken] = useState("");
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("auth_token");
+    if (token) {
+      setJwtToken(token);
+    }
+  }, []);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -17,7 +25,12 @@ const Users = () => {
       if (searchTerm.trim() !== "") {
         url = `http://127.0.0.1:8000/api/search/${searchTerm}`;
       }
-      const response = await axios.get(url);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      };
+      const response = await axios.get(url, config);
       console.log("API Response:", response.data);
 
       if (!response.data.meta) {
@@ -36,7 +49,7 @@ const Users = () => {
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  }, [currentPage, searchTerm]);
+  }, [currentPage, searchTerm, jwtToken]);
 
   useEffect(() => {
     fetchUsers();
@@ -45,7 +58,6 @@ const Users = () => {
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-
       event.returnValue = "";
     };
 
@@ -70,7 +82,29 @@ const Users = () => {
     setEditingUserId(null);
   };
 
-  const deleteUser = (userId) => {};
+  const deleteUser = async (userId) => {
+    try {
+      const shouldDelete = window.confirm(
+        "Are you sure you want to delete this user?"
+      );
+      if (!shouldDelete) {
+        return;
+      }
+
+      const url = `http://127.0.0.1:8000/api/users/${userId}`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      };
+      const response = await axios.delete(url, config);
+      console.log("Delete Response:", response.data);
+
+      window.alert(`Response: ${response.data.message}`);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

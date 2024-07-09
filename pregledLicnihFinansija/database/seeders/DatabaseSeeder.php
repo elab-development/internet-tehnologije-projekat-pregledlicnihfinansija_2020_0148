@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         Category::truncate();
 
+        $this->call(CategorySeeder::class);
+
         $users = User::factory(10)->create();
 
         $this->call(AssignRolesToUsersSeeder::class);
@@ -54,8 +56,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'user'
         ]);
 
-        
-        $categories = Category::factory(5)->create();
+
+        $categories = Category::all();
 
         foreach (range(1, 20) as $index) {
             Transaction::factory()->create([
@@ -63,6 +65,5 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $categories->random()->id
             ]);
         }
-
     }
 }

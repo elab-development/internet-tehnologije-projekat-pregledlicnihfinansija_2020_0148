@@ -36,13 +36,15 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
+            //'password' => 'required|string|min:8',
         ]);
+
+        $password = $request->input('password') ? $request->input('password') : 'password';
 
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'password' => Hash::make($password),
         ]);
 
         return response()->json($user, 201);
@@ -84,7 +86,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
         ]);
-        
+
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -103,7 +105,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User successfully deleted'], 200);
     }
 
-    
+
     public function paginateUsers(Request $request)
     {
         $perPage = $request->input('per_page', 5);

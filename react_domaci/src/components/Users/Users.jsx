@@ -76,7 +76,36 @@ const Users = () => {
     setEditingUserId(userId);
   };
 
-  const handleSubmit = (name, email) => {};
+  const handleSubmit = async (name, email) => {
+    try {
+      if (!name || !email) {
+        alert("Both name and email are required.");
+        return;
+      }
+
+      const url = `http://127.0.0.1:8000/api/users`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      };
+      const data = {
+        name,
+        email,
+      };
+      const response = await axios.post(url, data, config);
+      console.log("Add User Response:", response.data);
+
+      // Refresh the user list after adding a new user
+      fetchUsers();
+
+      // Reset the form or editing state
+      setEditingUserId(null);
+    } catch (error) {
+      console.error("Error adding user:", error);
+      alert("Error adding user. Make sure you have the correct permissions.");
+    }
+  };
 
   const handleCancel = () => {
     setEditingUserId(null);

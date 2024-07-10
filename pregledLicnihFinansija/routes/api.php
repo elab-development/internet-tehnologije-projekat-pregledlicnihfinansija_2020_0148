@@ -56,6 +56,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/users/{id}/transactions-paginate', [UserTransactionController::class, 'paginateTransactions']);
 
+    Route::get('/users/{user}/transactions/category/{categoryName}', [UserTransactionController::class, 'getTransactionsByCategory']);
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });

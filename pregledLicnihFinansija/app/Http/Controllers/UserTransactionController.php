@@ -6,6 +6,8 @@ use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\User;
 
 class UserTransactionController extends Controller
 {
@@ -51,5 +53,12 @@ class UserTransactionController extends Controller
             ->paginate($perPage);
 
         return TransactionResource::collection($transactions);
+    }
+
+    public function getTransactionsByCategory(User $user, $categoryName)
+    {
+        $category = Category::where('name', $categoryName)->firstOrFail();
+        $transactions = $user->transactions()->where('category_id', $category->id)->get();
+        return response()->json($transactions);
     }
 }

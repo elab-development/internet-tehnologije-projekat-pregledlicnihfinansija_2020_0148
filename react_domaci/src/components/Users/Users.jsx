@@ -76,34 +76,46 @@ const Users = () => {
     setEditingUserId(userId);
   };
 
-  const handleSubmit = async (name, email) => {
+  const handleSubmit = async (name, email, password = "") => {
     try {
       if (!name || !email) {
         alert("Both name and email are required.");
         return;
       }
 
-      const url = `http://127.0.0.1:8000/api/users`;
       const config = {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
       };
+      let response;
+
       const data = {
         name,
         email,
+        password,
       };
-      const response = await axios.post(url, data, config);
-      console.log("Add User Response:", response.data);
 
-      // Refresh the user list after adding a new user
+      console.log("Submitting data:", data);
+
+      if (editingUserId === "new") {
+        const url = `http://127.0.0.1:8000/api/users`;
+        response = await axios.post(url, data, config);
+        window.alert("User successfully saved");
+      } else {
+        const url = `http://127.0.0.1:8000/api/users/${editingUserId}`;
+        response = await axios.put(url, data, config);
+        window.alert("User successfully updated");
+      }
+
+      console.log("User Save Response:", response.data);
+
       fetchUsers();
 
-      // Reset the form or editing state
       setEditingUserId(null);
     } catch (error) {
-      console.error("Error adding user:", error);
-      alert("Error adding user. Make sure you have the correct permissions.");
+      console.error("Error saving user:", error);
+      alert("Error saving user. Make sure you have the correct permissions.");
     }
   };
 
@@ -130,6 +142,8 @@ const Users = () => {
       console.log("Delete Response:", response.data);
 
       window.alert(`Response: ${response.data.message}`);
+
+      fetchUsers();
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -165,7 +179,9 @@ const Users = () => {
 
       {editingUserId && (
         <UserForm
-          onSubmit={(name, email) => handleSubmit(name, email)}
+          onSubmit={(name, email, password) =>
+            handleSubmit(name, email, password)
+          }
           onCancel={handleCancel}
           initialName={
             editingUserId === "new"
@@ -177,6 +193,7 @@ const Users = () => {
               ? ""
               : users.find((user) => user.id === editingUserId)?.email || ""
           }
+          initialPassword=""
         />
       )}
 

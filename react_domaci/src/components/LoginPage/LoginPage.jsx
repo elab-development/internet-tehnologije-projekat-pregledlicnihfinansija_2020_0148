@@ -1,9 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./LoginPage.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../UserContext";
 
 const LoginPage = ({ addToken }) => {
   const [userData, setUserData] = useState({
@@ -11,6 +12,7 @@ const LoginPage = ({ addToken }) => {
     password: "",
   });
 
+  const { setUser } = useContext(UserContext);
   let navigate = useNavigate();
 
   function handleInput(e) {
@@ -21,21 +23,47 @@ const LoginPage = ({ addToken }) => {
     console.log("Password:", newUserData.password);
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
-    axios
-      .post("http://127.0.0.1:8000/api/login", userData)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.success === true) {
-          window.sessionStorage.setItem("auth_token", res.data.access_token);
-          addToken(res.data.access_token);
-          navigate("/");
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/login",
+        userData
+      );
+
+      if (response.data.success === true) {
+        const { access_token } = response.data;
+
+        // Set token in sessionStorage
+        window.sessionStorage.setItem("auth_token", access_token);
+        addToken(access_token);
+
+        // Fetch user details separately using the token
+        const userResponse = await axios.get("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+
+        // Assuming userResponse.data contains user details
+        const { id, email } = userResponse.data;
+
+        // Set user context
+        setUser({ id, email });
+
+        // Navigate to home page or desired location
+        navigate("/");
+      } else {
+        // Handle login failure (optional)
+        console.log("Login failed:", response.data.message);
+        // Example: Show error message to the user
+        alert("Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Example: Show generic error message to the user
+      alert("An error occurred while logging in. Please try again later.");
+    }
   }
 
   return (

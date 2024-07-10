@@ -18,6 +18,7 @@ import HealthAndWellness from "./components/Transactions/Categories/HealthAndWel
 import Contact from "./components/Contact/Contact";
 import React from "react";
 import { useState } from "react";
+import { UserProvider } from "./UserContext";
 
 function App() {
   const [token, setToken] = useState();
@@ -25,32 +26,37 @@ function App() {
     setToken(auth_token);
   }
   return (
-    <BrowserRouter className="App">
-      <NavBar token={token} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage addToken={addToken} />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/logout" element={<LogoutPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/transactions/utilities" element={<Utilities />} />
-        <Route path="/transactions/groceries" element={<Groceries />} />
-        <Route path="/transactions/entertainment" element={<Entertainment />} />
-        <Route path="/transactions/shopping" element={<Shopping />} />
-        <Route
-          path="/transactions/healthandwellness"
-          element={<HealthAndWellness />}
-        />
-        <Route
-          path="/transactions/transportation"
-          element={<Transportation />}
-        />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter className="App">
+        <NavBar token={token} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage addToken={addToken} />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/logout" element={<LogoutPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/transactions/" element={<Transactions />} />
+          <Route path="/transactions/utilities" element={<Utilities />} />
+          <Route path="/transactions/groceries" element={<Groceries />} />
+          <Route
+            path="/transactions/entertainment"
+            element={<Entertainment />}
+          />
+          <Route path="/transactions/shopping" element={<Shopping />} />
+          <Route
+            path="/transactions/healthandwellness"
+            element={<HealthAndWellness />}
+          />
+          <Route
+            path="/transactions/transportation"
+            element={<Transportation />}
+          />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

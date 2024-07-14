@@ -34,34 +34,28 @@ const LoginPage = ({ addToken }) => {
       if (response.data.success === true) {
         const { access_token } = response.data;
 
-        // Set token in sessionStorage
         window.sessionStorage.setItem("auth_token", access_token);
         addToken(access_token);
 
-        // Fetch user details separately using the token
         const userResponse = await axios.get("http://127.0.0.1:8000/api/user", {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
         });
 
-        // Assuming userResponse.data contains user details
         const { id, email } = userResponse.data;
 
-        // Set user context
         setUser({ id, email });
 
-        // Navigate to home page or desired location
         navigate("/");
       } else {
-        // Handle login failure (optional)
         console.log("Login failed:", response.data.message);
-        // Example: Show error message to the user
+
         alert("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      // Example: Show generic error message to the user
+
       alert("An error occurred while logging in. Please try again later.");
     }
   }

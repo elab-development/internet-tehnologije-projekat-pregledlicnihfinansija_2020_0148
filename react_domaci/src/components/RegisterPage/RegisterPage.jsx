@@ -71,7 +71,7 @@ const RegisterPage = () => {
                         className="form-control form-control-lg"
                         onInput={handleInput}
                         required
-                        autoComplete="name" // Dodato
+                        autoComplete="name" 
                       />
                       <label className="form-label" htmlFor="yourName">
                         Your Name
@@ -86,7 +86,7 @@ const RegisterPage = () => {
                         className="form-control form-control-lg"
                         onInput={handleInput}
                         required
-                        autoComplete="email" // Dodato
+                        autoComplete="email" 
                       />
                       <label className="form-label" htmlFor="yourEmail">
                         Your Email
@@ -101,7 +101,7 @@ const RegisterPage = () => {
                         className="form-control form-control-lg"
                         onInput={handleInput}
                         required
-                        autoComplete="new-password" // Dodato
+                        autoComplete="new-password"
                       />
                       <label className="form-label" htmlFor="yourPassword">
                         Password
@@ -116,7 +116,7 @@ const RegisterPage = () => {
                         className="form-control form-control-lg"
                         onInput={handleInput}
                         required
-                        autoComplete="new-password" // Dodato
+                        autoComplete="new-password" 
                       />
                       <label className="form-label" htmlFor="repeatPassword">
                         Repeat your password

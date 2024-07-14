@@ -19,6 +19,7 @@ import Contact from "./components/Contact/Contact";
 import React from "react";
 import { useState } from "react";
 import { UserProvider } from "./UserContext";
+import CryptoPrices from "./components/CryptoPrices/CryptoPrices";
 
 function App() {
   const [token, setToken] = useState();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/logout" element={<LogoutPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/crypto" element={<CryptoPrices />} />
           <Route path="/transactions/" element={<Transactions />} />
           <Route path="/transactions/utilities" element={<Utilities />} />
           <Route path="/transactions/groceries" element={<Groceries />} />

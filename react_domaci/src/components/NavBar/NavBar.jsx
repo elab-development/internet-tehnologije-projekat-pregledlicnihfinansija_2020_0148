@@ -72,6 +72,12 @@ const NavBar = ({ token }) => {
                 </Link>
               </li>
 
+              <li className="nav-item">
+                <Link className="nav-link" to="/crypto">
+                  CryptoPrices
+                </Link>
+              </li>
+
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle btn btn-link"
@@ -90,9 +96,7 @@ const NavBar = ({ token }) => {
                     </Link>
                   </li>
                   {/* <li>
-                    <a className="dropdown-item" href="/">
-                      Something else
-                    </a>
+                    <Link className="dropdown-item" to="/crypto"></Link>
                   </li> */}
                 </ul>
               </li>

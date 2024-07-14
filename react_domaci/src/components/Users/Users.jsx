@@ -3,6 +3,7 @@ import UserForm from "../UserForm/UserForm";
 import "./Users.css";
 import "../UserForm/UserForm.css";
 import axios from "axios";
+import { CSVLink } from "react-csv";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -153,13 +154,13 @@ const Users = () => {
     setCurrentPage(pageNumber);
   };
 
-  const renderUsers = users.map((user) => (
-    <li key={user.id}>
-      {user.name} - {user.email}
-      <button onClick={() => updateUser(user.id)}>Update</button>
-      <button onClick={() => deleteUser(user.id)}>Delete</button>
-    </li>
-  ));
+  const generateCSVData = () => {
+    const csvData = users.map((user) => ({
+      Name: user.name,
+      Email: user.email,
+    }));
+    return csvData;
+  };
 
   return (
     <div className="container2">
@@ -174,7 +175,15 @@ const Users = () => {
       />
       <img src="/images/image3.jpg" alt="Users" className="3rd-image" />
       <div style={{ marginBottom: "20px" }}></div>
-      <ul>{renderUsers}</ul>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            {user.name} - {user.email}
+            <button onClick={() => updateUser(user.id)}>Update</button>
+            <button onClick={() => deleteUser(user.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
       <button onClick={addUser}>Add User</button>
 
       {editingUserId && (
@@ -196,6 +205,17 @@ const Users = () => {
           initialPassword=""
         />
       )}
+
+      <div style={{ marginTop: "20px" }}>
+        <CSVLink
+          data={generateCSVData()}
+          filename={"users.csv"}
+          className="btn btn-primary"
+          target="_blank"
+        >
+          Export Users to CSV
+        </CSVLink>
+      </div>
 
       <ul className="pagination">
         {Array.from({ length: totalPages }, (_, i) => (

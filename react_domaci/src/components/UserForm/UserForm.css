@@ -13,7 +13,8 @@ form.user-form {
 }
 
 form.user-form input[type="text"],
-form.user-form input[type="email"] {
+form.user-form input[type="email"],
+form.user-form input[type="password"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;

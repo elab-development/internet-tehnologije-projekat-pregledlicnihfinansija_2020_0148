@@ -1,5 +1,5 @@
 .page-trans {
-  background-color: lightblue; /* svetlo plava pozadina */
+  background-color: lightblue;
   padding: 30px;
 }
 
@@ -13,22 +13,26 @@
 }
 
 .transaction-card {
-  max-width: 600px; /* šira kartica */
+  max-width: 600px;
   margin: auto;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-header, .card-body, .card-footer {
+.card-header,
+.card-body,
+.card-footer {
   padding: 10px;
 }
 
-.card-title, .card-text-trans, .card-footer p {
+.card-title,
+.card-text-trans,
+.card-footer p {
   margin: 0;
 }
 
-.card-text-trans{
+.card-text-trans {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -39,7 +43,8 @@
   margin-top: 20px;
 }
 
-.btn-primary, .btn-del {
+.btn-primary,
+.btn-del {
   padding: 5px 10px;
   text-decoration: none;
   border-radius: 4px;
@@ -57,13 +62,13 @@
 .btn-del {
   background-color: red;
   color: white;
-  padding: 10px 20px; /* povećana veličina dugmeta sa svih strana */
+  padding: 10px 20px;
   text-decoration: none;
   border-radius: 4px;
 }
 
 .btn-del:hover {
-  background-color: #cc0000; /* malo tamnija crvena pri hover-u */
+  background-color: #cc0000;
 }
 
 .btn-add {

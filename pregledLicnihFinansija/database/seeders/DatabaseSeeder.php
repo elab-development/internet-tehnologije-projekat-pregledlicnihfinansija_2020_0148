@@ -5,9 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Preference;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -17,13 +19,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         User::truncate();
         Transaction::truncate();
         Category::truncate();
+        Preference::truncate();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $this->call(CategorySeeder::class);
+        /* $this->call([
+            PreferenceSeeder::class,
+        ]); */
 
         $users = User::factory(10)->create();
+
+        foreach ($users as $user) {
+            Preference::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        }
 
         $this->call(AssignRolesToUsersSeeder::class);
 

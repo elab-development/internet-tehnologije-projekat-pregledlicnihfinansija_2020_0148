@@ -63,4 +63,8 @@ class User extends Authenticatable
         return in_array($this->role, $roles);
     }
 
+    public function preference()
+    {
+        return $this->hasOne(Preference::class);
+    }
 }

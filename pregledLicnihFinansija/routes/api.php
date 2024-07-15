@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('role:admin');
 
     Route::post('/transactions', [TransactionController::class, 'store']);
+    Route::get('/transactions', [TransactionController::class, 'index']);
 
     Route::resource("users.transactions", UserTransactionController::class)->only(['index']);
 

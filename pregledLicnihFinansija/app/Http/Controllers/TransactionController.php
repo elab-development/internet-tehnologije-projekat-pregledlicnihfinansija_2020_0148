@@ -6,9 +6,28 @@ use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+        $transactions = Transaction::where('user_id', $user->id)->with('category')->get();
+
+        $transactionDetails = $transactions->map(function ($transaction) {
+            return [
+                'id' => $transaction->id,
+                'amount' => $transaction->amount,
+                'description' => $transaction->description,
+                'date' => $transaction->date,
+                'category_name' => $transaction->category->name,
+            ];
+        });
+
+        return response()->json(['transactions' => $transactionDetails], 200);
+    }
+
     public function store(Request $request)
     {
 

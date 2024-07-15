@@ -12,6 +12,8 @@ const Transactions = () => {
     category: "",
     amount: "",
     description: "",
+    isEdit: false,
+    id: null,
   });
   const [categories, setCategories] = useState([]);
 
@@ -68,34 +70,81 @@ const Transactions = () => {
     });
   };
 
+  const handleEdit = (transaction) => {
+    setFormData({
+      category: transaction.category_name,
+      amount: transaction.amount,
+      description: transaction.description,
+      isEdit: true,
+      id: transaction.id,
+    });
+    setShowForm(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const token = sessionStorage.getItem("auth_token");
 
-    axios
-      .post("http://127.0.0.1:8000/api/transactions", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        // Dodavanje nove transakcije u postojeću listu
-        setTransactions([...transactions, response.data.transaction]);
-        // Resetovanje forme
-        setFormData({
-          category: "",
-          amount: "",
-          description: "",
+    if (formData.isEdit) {
+      axios
+        .put(
+          `http://127.0.0.1:8000/api/transactions/${formData.id}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          // Update the transactions list with the updated transaction
+          setTransactions((prevTransactions) =>
+            prevTransactions.map((transaction) =>
+              transaction.id === response.data.transaction.id
+                ? response.data.transaction
+                : transaction
+            )
+          );
+          // Reset the form
+          setFormData({
+            category: "",
+            amount: "",
+            description: "",
+            isEdit: false,
+            id: null,
+          });
+          setShowForm(false);
+          fetchTransactions(); // Refresh the transactions list
+        })
+        .catch((error) => {
+          setError(error.response.data.message); // Set the error message received from the server
         });
-        // Sakrij formu
-        setShowForm(false);
-        // Ponovno učitavanje transakcija nakon dodavanja nove
-        fetchTransactions();
-      })
-      .catch((error) => {
-        setError(error.response.data.message); // Postavi error poruku koju dobijemo od servera
-      });
+    } else {
+      axios
+        .post("http://127.0.0.1:8000/api/transactions", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          // Add the new transaction to the existing list
+          setTransactions([...transactions, response.data.transaction]);
+          // Reset the form
+          setFormData({
+            category: "",
+            amount: "",
+            description: "",
+            isEdit: false,
+            id: null,
+          });
+          setShowForm(false);
+          fetchTransactions(); // Refresh the transactions list
+        })
+        .catch((error) => {
+          setError(error.response.data.message); // Set the error message received from the server
+        });
+    }
   };
 
   const handleDelete = (transactionId) => {
@@ -108,14 +157,14 @@ const Transactions = () => {
         },
       })
       .then((response) => {
-        // Filtriranje transakcija da izbacimo onu koju smo obrisali
+        // Filter the transactions to remove the deleted one
         const updatedTransactions = transactions.filter(
           (transaction) => transaction.id !== transactionId
         );
         setTransactions(updatedTransactions);
       })
       .catch((error) => {
-        setError(error.response.data.message); // Postavi error poruku koju dobijemo od servera
+        setError(error.response.data.message); // Set the error message received from the server
       });
   };
 
@@ -129,24 +178,24 @@ const Transactions = () => {
 
   return (
     <div className="page-trans">
-      {/* Dugme za prikaz forme */}
+      {/* Button to show the form */}
       <button onClick={toggleForm} className="btn btn-add">
         Add New Transaction
       </button>
 
-      {/* Forma za unos nove transakcije */}
+      {/* Form for adding or editing a transaction */}
       {showForm && (
         <TransactionForm
           formData={formData}
           handleInputChange={handleInputChange}
           setFormData={setFormData}
           setTransactions={setTransactions}
-          refreshTransactions={fetchTransactions} // Prosleđujemo funkciju za refresh
+          refreshTransactions={fetchTransactions} // Pass the refresh function
           handleSubmit={handleSubmit}
         />
       )}
 
-      {/* Lista postojećih transakcija */}
+      {/* List of existing transactions */}
       <ul className="transactions-list">
         {transactions.map((transaction) => (
           <li key={transaction.id} className="transaction-item">
@@ -160,7 +209,12 @@ const Transactions = () => {
                   Description: {transaction.description}
                 </p>
                 <div className="btn-container">
-                  <button className="btn btn-primary">Update</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleEdit(transaction)}
+                  >
+                    Update
+                  </button>
                   <button
                     className="btn-del"
                     onClick={() => handleDelete(transaction.id)}

@@ -52,49 +52,95 @@ const TransactionForm = ({
         category_id: selectedCategory.number,
       };
 
-      const token = sessionStorage.getItem("auth_token");
-
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/transactions",
-          {
-            category_id: newFormData.category_id,
-            amount: newFormData.amount,
-            description: newFormData.description,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((response) => {
-          if (setTransactions && typeof setTransactions === "function") {
-            setTransactions((prevTransactions) => [
-              ...prevTransactions,
-              response.data.transaction,
-            ]);
-          } else {
-            console.error("setTransactions is not a function or is undefined");
-          }
-          if (setFormData && typeof setFormData === "function") {
-            setFormData({
-              category: "",
-              amount: "",
-              description: "",
-            });
-          } else {
-            console.error("setFormData is not a function or is undefined");
-          }
-          refreshTransactions(); // Call refreshTransactions to update transactions list
-        })
-        .catch((error) => {
-          console.error("Error creating transaction:", error);
-          setError(error);
-        });
+      if (formData.isEdit) {
+        handleUpdateWrapper(newFormData);
+      } else {
+        handleCreateWrapper(newFormData);
+      }
     } else {
       console.error("Category not found");
     }
+  };
+
+  const handleCreateWrapper = (newFormData) => {
+    const token = sessionStorage.getItem("auth_token");
+
+    axios
+      .post(
+        "http://127.0.0.1:8000/api/transactions",
+        {
+          category_id: newFormData.category_id,
+          amount: newFormData.amount,
+          description: newFormData.description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (setTransactions && typeof setTransactions === "function") {
+          setTransactions((prevTransactions) => [
+            ...prevTransactions,
+            response.data.transaction,
+          ]);
+        } else {
+          console.error("setTransactions is not a function or is undefined");
+        }
+        if (setFormData && typeof setFormData === "function") {
+          setFormData({
+            category: "",
+            amount: "",
+            description: "",
+            isEdit: false, // Reset the isEdit flag
+          });
+        } else {
+          console.error("setFormData is not a function or is undefined");
+        }
+        refreshTransactions(); // Call refreshTransactions to update transactions list
+      })
+      .catch((error) => {
+        console.error("Error creating transaction:", error);
+        setError(error);
+      });
+  };
+
+  const handleUpdateWrapper = (newFormData) => {
+    const token = sessionStorage.getItem("auth_token");
+
+    axios
+      .put(
+        `http://127.0.0.1:8000/api/transactions/${newFormData.id}`,
+        {
+          category_id: newFormData.category_id,
+          amount: newFormData.amount,
+          description: newFormData.description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        refreshTransactions(); // Call refreshTransactions to update transactions list
+        if (setFormData && typeof setFormData === "function") {
+          setFormData({
+            category: "",
+            amount: "",
+            description: "",
+            isEdit: false, // Reset the isEdit flag
+          });
+        } else {
+          console.error("setFormData is not a function or is undefined");
+        }
+        setError(null);
+      })
+      .catch((error) => {
+        console.error("Error updating transaction:", error);
+        setError(error);
+      });
   };
 
   if (loading) {
@@ -131,8 +177,8 @@ const TransactionForm = ({
         placeholder="Description"
         required
       ></textarea>
-      <button type="submit">Submit</button>
-      {error && <p>Error creating transaction: {error.message}</p>}
+      <button type="submit">{formData.isEdit ? "Update" : "Submit"}</button>
+      {error && <p>Error: {error.message}</p>}
     </form>
   );
 };

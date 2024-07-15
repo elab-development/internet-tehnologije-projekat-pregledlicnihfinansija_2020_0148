@@ -1,23 +1,84 @@
-.transContainer {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
-    margin-top: -20px;
-  }
-  
-  .transCards-container {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-  }
-  
-  .transCard {
-    width: 100%;
-    max-width: calc(50% - 5px);
-  }
+.page-trans {
+  background-color: lightblue; /* svetlo plava pozadina */
+  padding: 30px;
+}
 
-  .card-header {
-    font-weight: bold;
-  }
+.transactions-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.transaction-item {
+  margin-bottom: 20px;
+}
+
+.transaction-card {
+  max-width: 600px; /* šira kartica */
+  margin: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header, .card-body, .card-footer {
+  padding: 10px;
+}
+
+.card-title, .card-text-trans, .card-footer p {
+  margin: 0;
+}
+
+.card-text-trans{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-primary, .btn-del {
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: blue;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: darkblue;
+}
+
+.btn-del {
+  background-color: red;
+  color: white;
+  padding: 10px 20px; /* povećana veličina dugmeta sa svih strana */
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.btn-del:hover {
+  background-color: #cc0000; /* malo tamnija crvena pri hover-u */
+}
+
+.btn-add {
+  background-color: green;
+  color: white;
+  display: block;
+  padding: 10px 50px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  margin: 0 auto;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.btn-add:hover {
+  background-color: darkgreen;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./Transactions.css";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -34,15 +35,35 @@ const Transactions = () => {
   }
 
   return (
-    <div>
-      <h1>Transactions</h1>
-      <ul>
+    <div className="page-trans">
+      <a href="#" className="btn btn-add">
+        Add New Transaction
+      </a>
+      <ul className="transactions-list">
         {transactions.map((transaction) => (
-          <li key={transaction.id}>
-            <p>Amount: {transaction.amount}</p>
-            <p>Description: {transaction.description}</p>
-            <p>Date: {transaction.date}</p>
-            <p>Category: {transaction.category_name}</p>
+          <li key={transaction.id} className="transaction-item">
+            <div className="card transaction-card">
+              <div className="card-header">
+                <p>Category: {transaction.category_name}</p>
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">Amount: {transaction.amount}</h5>
+                <p className="card-text-trans">
+                  Description: {transaction.description}
+                </p>
+                <div className="btn-container">
+                  <a href="#" className="btn btn-primary">
+                    Update
+                  </a>
+                  <a href="#" className="btn-del">
+                    Delete
+                  </a>
+                </div>
+              </div>
+              <div className="card-footer text-muted">
+                <p>Date: {transaction.date}</p>
+              </div>
+            </div>
           </li>
         ))}
       </ul>

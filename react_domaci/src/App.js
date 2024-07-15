@@ -20,6 +20,7 @@ import React from "react";
 import { useState } from "react";
 import { UserProvider } from "./UserContext";
 import CryptoPrices from "./components/CryptoPrices/CryptoPrices";
+import Preferences from "./components/Preferences/Preferences";
 
 function App() {
   const [token, setToken] = useState();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/users" element={<Users />} />
           <Route path="/crypto" element={<CryptoPrices />} />
+          <Route path="/preferences" element={<Preferences />} />
           <Route path="/transactions/" element={<Transactions />} />
           <Route path="/transactions/utilities" element={<Utilities />} />
           <Route path="/transactions/groceries" element={<Groceries />} />

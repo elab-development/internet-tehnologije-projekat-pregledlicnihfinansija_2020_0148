@@ -1,0 +1,14 @@
+.preferences-container {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #1f526c;
+  background-color: #f0f4f7;
+}
+
+.preferences-container iframe {
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 100%;
+  height: 600px;
+}

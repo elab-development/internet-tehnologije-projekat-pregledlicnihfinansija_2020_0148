@@ -95,9 +95,11 @@ const NavBar = ({ token }) => {
                       Users
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link className="dropdown-item" to="/crypto"></Link>
-                  </li> */}
+                  <li>
+                    <Link className="dropdown-item" to="/preferences">
+                      Preferences
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </ul>

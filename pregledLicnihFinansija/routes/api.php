@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTransactionController;
@@ -33,6 +34,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/paginated-categories', [CategoryController::class, 'paginateCategories']);
 Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
+Route::get('/preferences', [PreferenceController::class, 'index'])->name('preferences.index');
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -40,6 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update'])
         ->middleware('adminOrManager');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('role:admin');
+
 
     Route::post('/categories', [CategoryController::class, 'store'])->middleware('role:admin');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])

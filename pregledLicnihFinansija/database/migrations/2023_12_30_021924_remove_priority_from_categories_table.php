@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn('priority');
-        });
+
+        if (Schema::hasColumn('categories', 'priority')) {
+            Schema::table('categories', function (Blueprint $table) {
+                $table->dropColumn('priority');
+            });
+        }
     }
 
     /**
@@ -21,6 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+
         Schema::table('categories', function (Blueprint $table) {
             $table->integer('priority')->default(0);
         });

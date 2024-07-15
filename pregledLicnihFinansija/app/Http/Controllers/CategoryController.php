@@ -13,6 +13,10 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         return CategoryResource::collection($categories);
+        /* 
+        $categories = Category::pluck('name'); // Pluck metoda vraca samo ime kategorije
+
+        return response()->json(['categories' => $categories]); */
     }
 
     public function paginateCategories(Request $request)

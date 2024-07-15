@@ -6,7 +6,7 @@
     bottom: 0;
     width: 100%;
     text-align: center;
-    opacity: 0;
+    opacity: 1; /* ovde se menja vidljivost */
     transition: opacity 0.3s ease;
   }
   

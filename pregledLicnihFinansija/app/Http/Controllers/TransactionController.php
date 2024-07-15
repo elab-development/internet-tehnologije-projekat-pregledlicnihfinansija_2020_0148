@@ -62,4 +62,44 @@ class TransactionController extends Controller
 
         return response()->json(['message' => 'Transaction created successfully', 'transaction' => $transactionDetails], 201);
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'category_id' => 'required',
+            'amount' => 'required|numeric',
+            'description' => 'required|string',
+        ]);
+
+        $user = auth()->user();
+
+        $transaction = Transaction::where('user_id', $user->id)->findOrFail($id);
+        $category = Category::findOrFail($request->input('category_id'));
+
+        $transaction->amount = $request->input('amount');
+        $transaction->description = $request->input('description');
+        $transaction->category()->associate($category);
+        $transaction->save();
+
+        $transactionDetails = [
+            'id' => $transaction->id,
+            'amount' => $transaction->amount,
+            'description' => $transaction->description,
+            'date' => $transaction->date,
+            'user_name' => $user->name,
+            'category_name' => $category->name,
+        ];
+
+        return response()->json(['message' => 'Transaction updated successfully', 'transaction' => $transactionDetails], 200);
+    }
+
+    public function destroy($id)
+    {
+        $user = auth()->user();
+
+        $transaction = Transaction::where('user_id', $user->id)->findOrFail($id);
+        $transaction->delete();
+
+        return response()->json(['message' => 'Transaction deleted successfully'], 200);
+    }
 }

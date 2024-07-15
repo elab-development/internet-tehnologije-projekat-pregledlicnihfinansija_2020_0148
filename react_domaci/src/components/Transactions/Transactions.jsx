@@ -98,6 +98,27 @@ const Transactions = () => {
       });
   };
 
+  const handleDelete = (transactionId) => {
+    const token = sessionStorage.getItem("auth_token");
+
+    axios
+      .delete(`http://127.0.0.1:8000/api/transactions/${transactionId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // Filtriranje transakcija da izbacimo onu koju smo obrisali
+        const updatedTransactions = transactions.filter(
+          (transaction) => transaction.id !== transactionId
+        );
+        setTransactions(updatedTransactions);
+      })
+      .catch((error) => {
+        setError(error.response.data.message); // Postavi error poruku koju dobijemo od servera
+      });
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -140,7 +161,12 @@ const Transactions = () => {
                 </p>
                 <div className="btn-container">
                   <button className="btn btn-primary">Update</button>
-                  <button className="btn-del">Delete</button>
+                  <button
+                    className="btn-del"
+                    onClick={() => handleDelete(transaction.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
               <div className="card-footer text-muted">

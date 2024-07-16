@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Transactions.css";
-import TransactionForm from "./TransactionForm"; // Importovanje nove komponente
+import TransactionForm from "./TransactionForm";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false); // Dodajemo state za prikaz forme
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     category: "",
     amount: "",
@@ -15,9 +15,7 @@ const Transactions = () => {
     isEdit: false,
     id: null,
   });
-  const [categories, setCategories] = useState([]);
 
-  // Function to fetch transactions from the server
   const fetchTransactions = () => {
     const token = sessionStorage.getItem("auth_token");
 
@@ -30,6 +28,7 @@ const Transactions = () => {
       .then((response) => {
         setTransactions(response.data.transactions);
         setLoading(false);
+        //console.log("Response from Laravel:", response.data);
       })
       .catch((error) => {
         setError(error);
@@ -40,26 +39,22 @@ const Transactions = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("auth_token");
 
-    // Dohvatanje liste kategorija sa servera
     axios
       .get("http://127.0.0.1:8000/api/categories", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        setCategories(response.data.data); // Čuvamo listu kategorija u stanju komponente
-      })
+      .then((response) => {})
       .catch((error) => {
         setError(error);
       });
 
-    // Pozivanje funkcije za dohvatanje transakcija
     fetchTransactions();
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+  }, []);
 
   const toggleForm = () => {
-    setShowForm(!showForm); // Funkcija za prikazivanje/skrivanje forme
+    setShowForm(!showForm);
   };
 
   const handleInputChange = (e) => {
@@ -98,7 +93,6 @@ const Transactions = () => {
           }
         )
         .then((response) => {
-          // Update the transactions list with the updated transaction
           setTransactions((prevTransactions) =>
             prevTransactions.map((transaction) =>
               transaction.id === response.data.transaction.id
@@ -106,7 +100,7 @@ const Transactions = () => {
                 : transaction
             )
           );
-          // Reset the form
+
           setFormData({
             category: "",
             amount: "",
@@ -115,10 +109,11 @@ const Transactions = () => {
             id: null,
           });
           setShowForm(false);
-          fetchTransactions(); // Refresh the transactions list
+
+          fetchTransactions();
         })
         .catch((error) => {
-          setError(error.response.data.message); // Set the error message received from the server
+          setError(error.response.data.message);
         });
     } else {
       axios
@@ -128,9 +123,8 @@ const Transactions = () => {
           },
         })
         .then((response) => {
-          // Add the new transaction to the existing list
           setTransactions([...transactions, response.data.transaction]);
-          // Reset the form
+
           setFormData({
             category: "",
             amount: "",
@@ -139,10 +133,11 @@ const Transactions = () => {
             id: null,
           });
           setShowForm(false);
-          fetchTransactions(); // Refresh the transactions list
+
+          fetchTransactions();
         })
         .catch((error) => {
-          setError(error.response.data.message); // Set the error message received from the server
+          setError(error.response.data.message);
         });
     }
   };
@@ -157,14 +152,35 @@ const Transactions = () => {
         },
       })
       .then((response) => {
-        // Filter the transactions to remove the deleted one
         const updatedTransactions = transactions.filter(
           (transaction) => transaction.id !== transactionId
         );
         setTransactions(updatedTransactions);
       })
       .catch((error) => {
-        setError(error.response.data.message); // Set the error message received from the server
+        setError(error.response.data.message);
+      });
+  };
+
+  const handleSortByDate = () => {
+    const token = sessionStorage.getItem("auth_token");
+    const userId = sessionStorage.getItem("user_id");
+
+    axios
+      .get(
+        `http://127.0.0.1:8000/api/users/${userId}/transactions_sort_by_date`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Sorted Transactions:", response.data.data);
+        setTransactions(response.data.data);
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
       });
   };
 
@@ -178,30 +194,36 @@ const Transactions = () => {
 
   return (
     <div className="page-trans">
-      {/* Button to show the form */}
       <button onClick={toggleForm} className="btn btn-add">
         Add New Transaction
       </button>
 
-      {/* Form for adding or editing a transaction */}
+      <button onClick={handleSortByDate} className="btn btn-sort">
+        Sort by Date
+      </button>
+
       {showForm && (
         <TransactionForm
           formData={formData}
           handleInputChange={handleInputChange}
           setFormData={setFormData}
           setTransactions={setTransactions}
-          refreshTransactions={fetchTransactions} // Pass the refresh function
+          refreshTransactions={fetchTransactions}
           handleSubmit={handleSubmit}
         />
       )}
 
-      {/* List of existing transactions */}
       <ul className="transactions-list">
         {transactions.map((transaction) => (
           <li key={transaction.id} className="transaction-item">
             <div className="card transaction-card">
               <div className="card-header">
-                <p>Category: {transaction.category_name}</p>
+                <p>
+                  Category:{transaction.category_name}
+                  {handleSortByDate
+                    ? transaction.category
+                    : transaction.category_name}
+                </p>
               </div>
               <div className="card-body">
                 <h5 className="card-title">Amount: {transaction.amount}</h5>

@@ -42,6 +42,7 @@ class UserTransactionController extends Controller
             ->orderBy('date', 'asc')
             ->get();
 
+
         return TransactionResource::collection($transactions);
     }
 

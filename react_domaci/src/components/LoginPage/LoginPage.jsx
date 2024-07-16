@@ -45,6 +45,8 @@ const LoginPage = ({ addToken }) => {
 
         const { id, email } = userResponse.data;
 
+        window.sessionStorage.setItem("user_id", id);
+
         setUser({ id, email });
 
         navigate("/");

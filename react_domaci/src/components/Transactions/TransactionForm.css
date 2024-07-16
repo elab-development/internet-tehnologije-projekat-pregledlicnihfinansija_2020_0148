@@ -1,0 +1,45 @@
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.transaction-form select,
+.transaction-form input,
+.transaction-form textarea,
+.transaction-form button {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.transaction-form select:focus,
+.transaction-form input:focus,
+.transaction-form textarea:focus,
+.transaction-form button:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.transaction-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.transaction-form button:hover {
+  background-color: #0056b3;
+}
+
+.transaction-form p {
+  color: red;
+  margin-top: 0.5rem;
+}

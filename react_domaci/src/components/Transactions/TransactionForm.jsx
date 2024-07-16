@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./TransactionForm.css";
 
 const TransactionForm = ({
   formData,
   handleInputChange,
   setFormData,
   setTransactions,
-  refreshTransactions, // Function to refresh transactions
+  refreshTransactions,
 }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,6 @@ const TransactionForm = ({
       .then((response) => {
         const fetchedCategories = response.data.data;
 
-        // Assigning numbers to categories
         const numberedCategories = fetchedCategories.map((category, index) => ({
           ...category,
           number: index + 1,
@@ -93,12 +93,12 @@ const TransactionForm = ({
             category: "",
             amount: "",
             description: "",
-            isEdit: false, // Reset the isEdit flag
+            isEdit: false,
           });
         } else {
           console.error("setFormData is not a function or is undefined");
         }
-        refreshTransactions(); // Call refreshTransactions to update transactions list
+        refreshTransactions();
       })
       .catch((error) => {
         console.error("Error creating transaction:", error);
@@ -124,13 +124,13 @@ const TransactionForm = ({
         }
       )
       .then((response) => {
-        refreshTransactions(); // Call refreshTransactions to update transactions list
+        refreshTransactions();
         if (setFormData && typeof setFormData === "function") {
           setFormData({
             category: "",
             amount: "",
             description: "",
-            isEdit: false, // Reset the isEdit flag
+            isEdit: false,
           });
         } else {
           console.error("setFormData is not a function or is undefined");

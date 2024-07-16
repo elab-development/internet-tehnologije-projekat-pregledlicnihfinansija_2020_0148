@@ -26,6 +26,7 @@ const LogoutPage = () => {
       .then((response) => {
         console.log(JSON.stringify(response.data));
         window.sessionStorage.removeItem("auth_token");
+        window.sessionStorage.removeItem("user_id");
       })
       .catch((error) => {
         console.log(error);

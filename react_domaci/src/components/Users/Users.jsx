@@ -183,7 +183,6 @@ const Users = () => {
             <button onClick={() => deleteUser(user.id)}>Delete</button>
           </li>
         ))}
-        0
       </ul>
       <button onClick={addUser}>Add User</button>
 

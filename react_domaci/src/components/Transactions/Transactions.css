@@ -103,3 +103,59 @@
 .btn-sort:hover {
   background-color: #e67e22;
 }
+
+.btn-report {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 10px 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-report:hover {
+  background-color: #45a049;
+}
+
+.btn-report:active {
+  background-color: #3e8e41;
+}
+
+.report-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.report-popup h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.btn-close {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-close:hover {
+  background-color: #d32f2f;
+}

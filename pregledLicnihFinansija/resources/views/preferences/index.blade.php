@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preferences</title>
     <style>
-        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f8;
@@ -17,12 +16,11 @@
             height: 100vh;
         }
 
-       
         table {
             width: 50%;
             margin: 0 auto;
             border-collapse: collapse;
-            text-align: center; 
+            text-align: center;
         }
 
         th, td {
@@ -41,6 +39,7 @@
         <thead>
             <tr>
                 <th>User ID</th>
+                <th>User Name</th>
                 <th>Preferred Language</th>
                 <th>Receive Newsletter</th>
             </tr>
@@ -49,6 +48,7 @@
             @foreach($preferences as $preference)
                 <tr>
                     <td>{{ $preference->user_id }}</td>
+                    <td>{{ $preference->user_name }}</td>
                     <td>{{ $preference->preferred_language }}</td>
                     <td>{{ $preference->receive_newsletter ? 'Yes' : 'No' }}</td>
                 </tr>

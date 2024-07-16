@@ -119,4 +119,17 @@ class UserController extends Controller
         $users = User::where('name', 'like', '%' . $name . '%')->get();
         return UserResource::collection($users);
     }
+
+    public function categorySpendingReport($userId)
+    {
+        $report = DB::table('transactions')
+            ->join('categories', 'transactions.category_id', '=', 'categories.id')
+            ->join('users', 'transactions.user_id', '=', 'users.id')
+            ->where('users.id', $userId)
+            ->select('categories.name AS category_name', DB::raw('SUM(transactions.amount) AS total_spent'))
+            ->groupBy('categories.name')
+            ->get();
+
+        return response()->json($report);
+    }
 }

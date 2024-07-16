@@ -36,6 +36,9 @@ Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 Route::get('/preferences', [PreferenceController::class, 'index'])->name('preferences.index');
 
+Route::get('/users/{userId}/category-spending-report', [UserController::class, 'categorySpendingReport']);
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/users', [UserController::class, 'store'])->middleware('role:admin');

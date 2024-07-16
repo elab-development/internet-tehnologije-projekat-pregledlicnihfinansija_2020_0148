@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Transactions.css";
 import TransactionForm from "./TransactionForm";
@@ -15,6 +15,8 @@ const Transactions = () => {
     isEdit: false,
     id: null,
   });
+  const [showReport, setShowReport] = useState(false);
+  const [reportData, setReportData] = useState([]);
 
   const fetchTransactions = () => {
     const token = sessionStorage.getItem("auth_token");
@@ -28,7 +30,6 @@ const Transactions = () => {
       .then((response) => {
         setTransactions(response.data.transactions);
         setLoading(false);
-        //console.log("Response from Laravel:", response.data);
       })
       .catch((error) => {
         setError(error);
@@ -176,8 +177,30 @@ const Transactions = () => {
         }
       )
       .then((response) => {
-        console.log("Sorted Transactions:", response.data.data);
         setTransactions(response.data.data);
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+      });
+  };
+
+  const generateReport = () => {
+    const token = sessionStorage.getItem("auth_token");
+    const userId = sessionStorage.getItem("user_id");
+
+    axios
+      .get(
+        `http://127.0.0.1:8000/api/users/${userId}/category-spending-report`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setReportData(response.data);
+        console.log("Response from Laravel:", response.data);
+        setShowReport(true);
       })
       .catch((error) => {
         setError(error.response.data.message);
@@ -202,6 +225,10 @@ const Transactions = () => {
         Sort by Date
       </button>
 
+      <button onClick={generateReport} className="btn btn-report">
+        Generate Report
+      </button>
+
       {showForm && (
         <TransactionForm
           formData={formData}
@@ -218,12 +245,7 @@ const Transactions = () => {
           <li key={transaction.id} className="transaction-item">
             <div className="card transaction-card">
               <div className="card-header">
-                <p>
-                  Category:{transaction.category_name}
-                  {handleSortByDate
-                    ? transaction.category
-                    : transaction.category_name}
-                </p>
+                <p>Category: {transaction.category_name}</p>
               </div>
               <div className="card-body">
                 <h5 className="card-title">Amount: {transaction.amount}</h5>
@@ -252,6 +274,32 @@ const Transactions = () => {
           </li>
         ))}
       </ul>
+
+      {showReport && (
+        <div className="report-popup">
+          <button
+            onClick={() => setShowReport(false)}
+            className="btn-close"
+          ></button>
+          <h2>Category Spending Report</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Category Name</th>
+                <th>Total Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reportData.map((item) => (
+                <tr key={item.category_name}>
+                  <td>{item.category_name}</td>
+                  <td>{item.total_spent}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

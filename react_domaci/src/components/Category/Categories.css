@@ -1,0 +1,79 @@
+.cat-container {
+    background-color: #007bff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .cat-heading {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .cat-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .cat-button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .cat-button:hover {
+    background-color: #004080;
+  }
+  
+  .cat-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centriranje stavki vertikalno */
+  }
+  
+  .cat-item {
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    padding: 15px;
+    max-width: 800px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Da bi se elementi u listi protezali do maksimalne širine */
+    box-sizing: border-box; /* Da padding ne utiče na širinu elementa */
+  }
+  
+  .cat-name,
+  .cat-description {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .cat-actions {
+    text-align: center;
+  }
+  
+  .cat-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .cat-button:hover {
+    background-color: #218838;
+  }
+  
+  .cat-item:hover {
+    background-color: #e9ecef;
+  }
+  

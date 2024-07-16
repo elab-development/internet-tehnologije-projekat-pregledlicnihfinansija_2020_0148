@@ -5,6 +5,28 @@
   margin-bottom: -90px;
 }
 
+.warning-trans {
+  font-size: 2em;
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+}
+
+.loading-trans {
+  font-size: 2em;
+  color: blue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+}
+
 .transactions-list {
   list-style-type: none;
   padding: 0;

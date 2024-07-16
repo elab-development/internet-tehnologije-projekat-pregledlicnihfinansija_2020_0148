@@ -9,12 +9,6 @@ import LogoutPage from "./components/Logout/Logout";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Users from "./components/Users/Users";
 import Transactions from "./components/Transactions/Transactions";
-import Utilities from "./components/Transactions/Categories/Utilities";
-import Groceries from "./components/Transactions/Categories/Groceries";
-import Transportation from "./components/Transactions/Categories/Transportation";
-import Entertainment from "./components/Transactions/Categories/Entertainment";
-import Shopping from "./components/Transactions/Categories/Shopping";
-import HealthAndWellness from "./components/Transactions/Categories/HealthAndWellness";
 import Contact from "./components/Contact/Contact";
 import React from "react";
 import { useState } from "react";
@@ -22,6 +16,7 @@ import { UserProvider } from "./UserContext";
 import CryptoPrices from "./components/CryptoPrices/CryptoPrices";
 import Preferences from "./components/Preferences/Preferences";
 import FinanceQuiz from "./components/Quiz/FinanceQuiz";
+import Categories from "./components/Category/Categories";
 
 function App() {
   const [token, setToken] = useState();
@@ -42,22 +37,8 @@ function App() {
           <Route path="/crypto" element={<CryptoPrices />} />
           <Route path="/preferences" element={<Preferences />} />
           <Route path="/quiz" element={<FinanceQuiz />} />
-          <Route path="/transactions/" element={<Transactions />} />
-          <Route path="/transactions/utilities" element={<Utilities />} />
-          <Route path="/transactions/groceries" element={<Groceries />} />
-          <Route
-            path="/transactions/entertainment"
-            element={<Entertainment />}
-          />
-          <Route path="/transactions/shopping" element={<Shopping />} />
-          <Route
-            path="/transactions/healthandwellness"
-            element={<HealthAndWellness />}
-          />
-          <Route
-            path="/transactions/transportation"
-            element={<Transportation />}
-          />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/categories" element={<Categories />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />

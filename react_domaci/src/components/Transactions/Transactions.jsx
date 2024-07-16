@@ -208,11 +208,11 @@ const Transactions = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="loading-trans">Loading...</p>;
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p className="warning-trans">{"Login first!"}</p>;
   }
 
   return (

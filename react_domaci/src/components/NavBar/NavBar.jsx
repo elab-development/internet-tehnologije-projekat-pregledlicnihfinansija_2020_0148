@@ -102,6 +102,11 @@ const NavBar = ({ token }) => {
                     </Link>
                   </li>
                   <li>
+                    <Link className="dropdown-item" to="/categories">
+                      Categories
+                    </Link>
+                  </li>
+                  <li>
                     <Link className="dropdown-item" to="/preferences">
                       Preferences
                     </Link>

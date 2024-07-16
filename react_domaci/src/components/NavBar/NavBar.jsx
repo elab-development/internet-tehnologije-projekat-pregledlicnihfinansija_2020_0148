@@ -78,6 +78,12 @@ const NavBar = ({ token }) => {
                 </Link>
               </li>
 
+              <li className="nav-item">
+                <Link className="nav-link" to="/quiz">
+                  FinanceQuiz
+                </Link>
+              </li>
+
               <li className="nav-item dropdown">
                 <button
                   className="nav-link dropdown-toggle btn btn-link"

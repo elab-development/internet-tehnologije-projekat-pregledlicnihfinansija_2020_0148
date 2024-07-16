@@ -21,6 +21,7 @@ import { useState } from "react";
 import { UserProvider } from "./UserContext";
 import CryptoPrices from "./components/CryptoPrices/CryptoPrices";
 import Preferences from "./components/Preferences/Preferences";
+import FinanceQuiz from "./components/Quiz/FinanceQuiz";
 
 function App() {
   const [token, setToken] = useState();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/crypto" element={<CryptoPrices />} />
           <Route path="/preferences" element={<Preferences />} />
+          <Route path="/quiz" element={<FinanceQuiz />} />
           <Route path="/transactions/" element={<Transactions />} />
           <Route path="/transactions/utilities" element={<Utilities />} />
           <Route path="/transactions/groceries" element={<Groceries />} />

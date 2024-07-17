@@ -31,15 +31,15 @@ Podesite konekciju ka bazi podataka u .env fajlu tako što upisujete ime koje st
 
 Zatim otvarate terminal unutar foldera i pokrecete sledeće komande:
 
-    ```
+   ```
     php artisan migrate:fresh --seed
-    ```
+  ```
 
 Ova komanda popunjava bazu podacima.
 
-    ```
+   ```
     php artisan serve
-    ```
+   ```
 
 Ova komanda pokreće backend aplikacije.
 
@@ -49,9 +49,9 @@ Otvorite folder react_domaci u nekom code editoru(preporučen je Visual Studio C
 
 Zatim otvarate terminal unutar foldera i pokrecete sledeću komandu:
 
-    ```
+   ```
     npm start
-    ```
+   ```
 
 Na taj način pokrećete frontend aplikacije. Od ovog trenutka možete koristiti aplikaciju.
 

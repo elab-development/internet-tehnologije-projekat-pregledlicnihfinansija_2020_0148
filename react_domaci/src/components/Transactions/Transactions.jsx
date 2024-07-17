@@ -220,15 +220,15 @@ const Transactions = () => {
       <button onClick={toggleForm} className="btn btn-add">
         Add New Transaction
       </button>
+      <div className="container-sort-del">
+        <button onClick={handleSortByDate} className="btn btn-sort">
+          Sort by Date
+        </button>
 
-      <button onClick={handleSortByDate} className="btn btn-sort">
-        Sort by Date
-      </button>
-
-      <button onClick={generateReport} className="btn btn-report">
-        Generate Report
-      </button>
-
+        <button onClick={generateReport} className="btn btn-report">
+          Generate Report
+        </button>
+      </div>
       {showForm && (
         <TransactionForm
           formData={formData}

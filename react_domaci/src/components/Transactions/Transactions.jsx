@@ -245,7 +245,12 @@ const Transactions = () => {
           <li key={transaction.id} className="transaction-item">
             <div className="card transaction-card">
               <div className="card-header">
-                <p>Category: {transaction.category_name}</p>
+                <p>
+                  Category:{transaction.category_name}
+                  {handleSortByDate
+                    ? transaction.category
+                    : transaction.category_name}
+                </p>
               </div>
               <div className="card-body">
                 <h5 className="card-title">Amount: {transaction.amount}</h5>

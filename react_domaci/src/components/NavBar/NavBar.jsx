@@ -77,6 +77,11 @@ const NavBar = ({ token }) => {
                   CryptoPrices
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/converter">
+                  CurrencyConverter
+                </Link>
+              </li>
 
               <li className="nav-item">
                 <Link className="nav-link" to="/quiz">

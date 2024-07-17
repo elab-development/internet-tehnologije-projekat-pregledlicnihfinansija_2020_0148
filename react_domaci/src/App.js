@@ -17,6 +17,7 @@ import CryptoPrices from "./components/CryptoPrices/CryptoPrices";
 import Preferences from "./components/Preferences/Preferences";
 import FinanceQuiz from "./components/Quiz/FinanceQuiz";
 import Categories from "./components/Category/Categories";
+import CurrencyConverter from "./components/CurrencyConverter/CurrencyConverter";
 
 function App() {
   const [token, setToken] = useState();
@@ -35,6 +36,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/users" element={<Users />} />
           <Route path="/crypto" element={<CryptoPrices />} />
+          <Route path="/converter" element={<CurrencyConverter />} />
           <Route path="/preferences" element={<Preferences />} />
           <Route path="/quiz" element={<FinanceQuiz />} />
           <Route path="/transactions" element={<Transactions />} />

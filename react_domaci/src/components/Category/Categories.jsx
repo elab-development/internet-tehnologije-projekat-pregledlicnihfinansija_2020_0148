@@ -34,7 +34,7 @@ const Categories = () => {
       console.log("API Response:", response.data);
 
       const fetchedCategories = response.data.data.map((category, index) => ({
-        id: index + 1, // Dodajemo vestacki ID
+        id: index + 1,
         name: category.name,
         description: category.description,
       }));
@@ -61,8 +61,8 @@ const Categories = () => {
   };
 
   const handleSaveCategory = () => {
-    fetchCategories(); // Ponovno ucitavanje kategorija nakon dodavanja ili azuriranja
-    handleCloseForm(); // Zatvaranje forme nakon uspesnog sacuvanja
+    fetchCategories();
+    handleCloseForm();
   };
 
   return (

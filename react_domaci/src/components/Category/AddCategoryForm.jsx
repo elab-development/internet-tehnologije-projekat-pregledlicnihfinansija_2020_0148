@@ -24,8 +24,8 @@ const AddCategoryForm = ({ onClose, onSave }) => {
           description,
         }
       );
-      onSave(response.data); // Notify parent component of successful addition
-      onClose(); // Close the form after successful submit
+      onSave(response.data);
+      onClose();
     } catch (error) {
       console.error(
         "Error saving category:",
